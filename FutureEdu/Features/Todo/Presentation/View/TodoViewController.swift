@@ -11,7 +11,11 @@ final class TodoViewController: UIViewController {
 
     // MARK: - UI Components
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["All", "Active", "Completed"])
+        let control = UISegmentedControl(items: [
+            NSLocalizedString("filter_all", comment: "Show all tasks"),
+            NSLocalizedString("filter_active", comment: "Show only active tasks"),
+            NSLocalizedString("filter_completed", comment: "Show only completed tasks")
+        ])
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = 0
         return control
@@ -39,14 +43,14 @@ final class TodoViewController: UIViewController {
 
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "No tasks yet"
+        titleLabel.text = NSLocalizedString("empty_state_title", comment: "Shown when there are no tasks")
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         titleLabel.textColor = .secondaryLabel
         titleLabel.textAlignment = .center
 
         let subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Tap the + button above to create one"
+        subtitleLabel.text = NSLocalizedString("empty_state_subtitle", comment: "Hint on how to add a task")
         subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         subtitleLabel.textColor = .tertiaryLabel
         subtitleLabel.textAlignment = .center
@@ -94,7 +98,7 @@ final class TodoViewController: UIViewController {
 
     // MARK: - Setup
     private func setupUI() {
-        title = "My Tasks"
+        title = NSLocalizedString("my_tasks_title", comment: "Main screen title")
         view.backgroundColor = .systemGroupedBackground
         navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -105,12 +109,19 @@ final class TodoViewController: UIViewController {
             action: #selector(didTapAddButton)
         )
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
+        let statsButton = UIBarButtonItem(
             image: UIImage(systemName: "chart.pie"),
             style: .plain,
             target: self,
             action: #selector(didTapStats)
         )
+        let settingsButton = UIBarButtonItem(
+            image: UIImage(systemName: "gearshape"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapSettings)
+        )
+        navigationItem.leftBarButtonItems = [statsButton, settingsButton]
 
         view.addSubview(segmentedControl)
         view.addSubview(tableView)
@@ -162,22 +173,22 @@ final class TodoViewController: UIViewController {
 
     @objc private func didTapAddButton() {
         let alert = UIAlertController(
-            title: "New Task",
-            message: "Enter the task description below",
+            title: NSLocalizedString("new_task_title", comment: "New task alert title"),
+            message: NSLocalizedString("new_task_message", comment: "New task alert message"),
             preferredStyle: .alert
         )
 
         alert.addTextField { textField in
-            textField.placeholder = "e.g., Buy groceries, Read a book..."
+            textField.placeholder = NSLocalizedString("new_task_placeholder", comment: "New task text field placeholder")
             textField.autocapitalizationType = .sentences
         }
 
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self, weak alert] _ in
+        let addAction = UIAlertAction(title: NSLocalizedString("add_action", comment: "Confirm adding a task"), style: .default) { [weak self, weak alert] _ in
             guard let text = alert?.textFields?.first?.text else { return }
             self?.viewModel.addTodo(title: text)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel_action", comment: "Cancel adding a task"), style: .cancel)
 
         alert.addAction(addAction)
         alert.addAction(cancelAction)
@@ -191,6 +202,11 @@ final class TodoViewController: UIViewController {
         let statsVC = StatsViewController(stats: viewModel.stats)
         let nav = UINavigationController(rootViewController: statsVC)
         present(nav, animated: true)
+    }
+
+    @objc private func didTapSettings() {
+        let settingsVC = SettingsViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
 }
 
@@ -228,7 +244,7 @@ extension TodoViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("delete_action", comment: "Swipe-to-delete action title")) { [weak self] (_, _, completionHandler) in
             self?.viewModel.deleteTodo(at: indexPath.row)
             completionHandler(true)
         }

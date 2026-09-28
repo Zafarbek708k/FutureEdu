@@ -28,7 +28,7 @@ final class StatsViewController: UIViewController {
     }
 
     private func setupUI() {
-        title = "Overview"
+        title = NSLocalizedString("overview_title", comment: "Stats screen title")
         view.backgroundColor = .systemGroupedBackground
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -38,9 +38,9 @@ final class StatsViewController: UIViewController {
         )
 
         let stack = UIStackView(arrangedSubviews: [
-            makeRow(title: "Total", value: stats.total),
-            makeRow(title: "Active", value: stats.active),
-            makeRow(title: "Completed", value: stats.completed)
+            makeRow(title: NSLocalizedString("stats_total", comment: "Total tasks count label"), value: stats.total),
+            makeRow(title: NSLocalizedString("stats_active", comment: "Active tasks count label"), value: stats.active),
+            makeRow(title: NSLocalizedString("stats_completed", comment: "Completed tasks count label"), value: stats.completed)
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical

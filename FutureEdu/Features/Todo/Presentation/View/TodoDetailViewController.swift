@@ -34,7 +34,7 @@ final class TodoDetailViewController: UIViewController {
     private let completedLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Completed"
+        label.text = NSLocalizedString("completed_label", comment: "Label next to the completed toggle")
         label.font = UIFont.systemFont(ofSize: 17)
         return label
     }()
@@ -69,7 +69,7 @@ final class TodoDetailViewController: UIViewController {
     }
 
     private func setupUI() {
-        title = "Task Details"
+        title = NSLocalizedString("task_details_title", comment: "Task detail screen title")
         view.backgroundColor = .systemGroupedBackground
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -100,7 +100,8 @@ final class TodoDetailViewController: UIViewController {
     private func populateFields() {
         titleField.text = todo.title
         completedSwitch.isOn = todo.isCompleted
-        createdLabel.text = "Created \(Self.dateFormatter.string(from: todo.createdAt))"
+        let format = NSLocalizedString("created_label_format", comment: "Prefix before the creation date, e.g. 'Created %@'")
+        createdLabel.text = String(format: format, Self.dateFormatter.string(from: todo.createdAt))
     }
 
     @objc private func didTapSave() {
