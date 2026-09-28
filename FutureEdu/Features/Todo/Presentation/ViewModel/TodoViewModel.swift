@@ -46,6 +46,10 @@ final class TodoViewModel {
         return allTodos.filter { $0.isCompleted }.count
     }
 
+    var stats: TodoStats {
+        TodoStats(total: allTodos.count, active: remainingCount, completed: completedCount)
+    }
+
     init(repository: TodoRepository = TodoRepositoryImpl()) {
         self.repository = repository
         loadTodos()
@@ -73,6 +77,13 @@ final class TodoViewModel {
             allTodos[originalIndex].isCompleted.toggle()
             persistTodos()
         }
+    }
+
+    func updateTodo(id: UUID, title: String, isCompleted: Bool) {
+        guard let index = allTodos.firstIndex(where: { $0.id == id }) else { return }
+        allTodos[index].title = title
+        allTodos[index].isCompleted = isCompleted
+        persistTodos()
     }
 
     func deleteTodo(at index: Int) {

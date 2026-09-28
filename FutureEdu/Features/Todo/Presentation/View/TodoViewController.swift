@@ -105,6 +105,13 @@ final class TodoViewController: UIViewController {
             action: #selector(didTapAddButton)
         )
 
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chart.pie"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapStats)
+        )
+
         view.addSubview(segmentedControl)
         view.addSubview(tableView)
         view.addSubview(emptyStateView)
@@ -177,6 +184,14 @@ final class TodoViewController: UIViewController {
 
         present(alert, animated: true)
     }
+
+    @objc private func didTapStats() {
+        // Modal presentation: a self-contained screen wrapped in its own
+        // navigation bar, shown over the current one instead of pushed onto it.
+        let statsVC = StatsViewController(stats: viewModel.stats)
+        let nav = UINavigationController(rootViewController: statsVC)
+        present(nav, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -202,7 +217,14 @@ extension TodoViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        viewModel.toggleTodo(at: indexPath.row)
+        guard let item = viewModel.item(at: indexPath.row) else { return }
+
+        // Push navigation: the detail screen is pushed onto the same
+        // navigation stack, with a back button added automatically.
+        let detailVC = TodoDetailViewController(todo: item) { [weak self] updatedTodo in
+            self?.viewModel.updateTodo(id: updatedTodo.id, title: updatedTodo.title, isCompleted: updatedTodo.isCompleted)
+        }
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
