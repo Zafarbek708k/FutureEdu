@@ -109,19 +109,12 @@ final class TodoViewController: UIViewController {
             action: #selector(didTapAddButton)
         )
 
-        let statsButton = UIBarButtonItem(
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chart.pie"),
             style: .plain,
             target: self,
             action: #selector(didTapStats)
         )
-        let settingsButton = UIBarButtonItem(
-            image: UIImage(systemName: "gearshape"),
-            style: .plain,
-            target: self,
-            action: #selector(didTapSettings)
-        )
-        navigationItem.leftBarButtonItems = [statsButton, settingsButton]
 
         view.addSubview(segmentedControl)
         view.addSubview(tableView)
@@ -202,11 +195,6 @@ final class TodoViewController: UIViewController {
         let statsVC = StatsViewController(stats: viewModel.stats)
         let nav = UINavigationController(rootViewController: statsVC)
         present(nav, animated: true)
-    }
-
-    @objc private func didTapSettings() {
-        let settingsVC = SettingsViewController()
-        navigationController?.pushViewController(settingsVC, animated: true)
     }
 }
 

@@ -13,20 +13,48 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Programmatic root (no storyboard): a navigation controller hosting the
-        // Telegram-style messages screen, so we get large titles + search.
+        // Programmatic root (no storyboard): a UITabBarController with three
+        // tabs. On iOS 26 a plain UITabBarController already renders as the
+        // floating "Liquid Glass" bar — no custom bar is needed.
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let todoVC = TodoViewController()
-        let nav = UINavigationController(rootViewController: todoVC)
-        nav.navigationBar.prefersLargeTitles = true
-
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = nav
+        window.rootViewController = makeRootTabBarController()
         window.makeKeyAndVisible()
         self.window = window
 
         ThemeManager.shared.attach(to: window)
+    }
+
+    private func makeRootTabBarController() -> UITabBarController {
+        let homeNav = UINavigationController(rootViewController: HomeViewController())
+        homeNav.tabBarItem = UITabBarItem(
+            title: NSLocalizedString("home_title", comment: "Home tab title"),
+            image: UIImage(systemName: "house"),
+            selectedImage: UIImage(systemName: "house.fill")
+        )
+
+        let futureNav = UINavigationController(rootViewController: FutureViewController())
+        futureNav.tabBarItem = UITabBarItem(
+            title: NSLocalizedString("future_title", comment: "Future tab title"),
+            image: UIImage(systemName: "sparkles"),
+            selectedImage: UIImage(systemName: "sparkles")
+        )
+
+        let settingsNav = UINavigationController(rootViewController: SettingsViewController())
+        settingsNav.tabBarItem = UITabBarItem(
+            title: NSLocalizedString("settings_title", comment: "Settings tab title"),
+            image: UIImage(systemName: "gearshape"),
+            selectedImage: UIImage(systemName: "gearshape.fill")
+        )
+
+        for nav in [homeNav, futureNav, settingsNav] {
+            nav.navigationBar.prefersLargeTitles = true
+        }
+
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [homeNav, futureNav, settingsNav]
+        return tabBarController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
