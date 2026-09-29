@@ -7,13 +7,23 @@ import UIKit
 
 final class TodoViewController: UIViewController {
 
+    /// Single-section table. `Int` is used as the section identifier because the
+    /// target has default MainActor isolation and diffable identifiers must have a
+    /// non-isolated `Hashable` conformance (`Int`, `UUID` qualify out of the box).
+    private static let mainSection = 0
+
     private let viewModel: TodoViewModel
+    private var hasAppliedInitialSnapshot = false
 
     // MARK: - UI Components
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["All", "Active", "Completed"])
+        let control = UISegmentedControl(items: [
+            L10n.tr("todo.filter.all", 0),
+            L10n.tr("todo.filter.active", 0),
+            L10n.tr("todo.filter.done", 0)
+        ])
         control.translatesAutoresizingMaskIntoConstraints = false
-        control.selectedSegmentIndex = 0
+        control.selectedSegmentIndex = TodoFilter.all.rawValue
         return control
     }()
 
@@ -26,56 +36,17 @@ final class TodoViewController: UIViewController {
         return table
     }()
 
-    private let emptyStateView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let emptyStateView: EmptyStateView = {
+        let view = EmptyStateView()
         view.isHidden = true
-
-        let iconConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .light)
-        let imageView = UIImageView(image: UIImage(systemName: "checklist", withConfiguration: iconConfig))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = .systemGray3
-        imageView.contentMode = .scaleAspectFit
-
-        let titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "No tasks yet"
-        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        titleLabel.textColor = .secondaryLabel
-        titleLabel.textAlignment = .center
-
-        let subtitleLabel = UILabel()
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Tap the + button above to create one"
-        subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        subtitleLabel.textColor = .tertiaryLabel
-        subtitleLabel.textAlignment = .center
-
-        view.addSubview(imageView)
-        view.addSubview(titleLabel)
-        view.addSubview(subtitleLabel)
-
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30),
-            imageView.widthAnchor.constraint(equalToConstant: 60),
-            imageView.heightAnchor.constraint(equalToConstant: 60),
-
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
-
         return view
     }()
 
+    private lazy var dataSource = makeDataSource()
+
     // MARK: - Initializer
-    init(viewModel: TodoViewModel = TodoViewModel()) {
-        self.viewModel = viewModel
+    init(viewModel: TodoViewModel? = nil) {
+        self.viewModel = viewModel ?? TodoViewModel()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -94,22 +65,23 @@ final class TodoViewController: UIViewController {
 
     // MARK: - Setup
     private func setupUI() {
-        title = "My Tasks"
+        title = L10n.tr("todo.title")
         view.backgroundColor = .systemGroupedBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        let addButton = UIBarButtonItem(
             image: UIImage(systemName: "plus"),
             style: .plain,
             target: self,
             action: #selector(didTapAddButton)
         )
+        addButton.accessibilityLabel = L10n.tr("todo.add.a11y")
+        navigationItem.rightBarButtonItem = addButton
 
         view.addSubview(segmentedControl)
         view.addSubview(tableView)
         view.addSubview(emptyStateView)
 
-        tableView.dataSource = self
+        tableView.dataSource = dataSource
         tableView.delegate = self
 
         segmentedControl.addTarget(self, action: #selector(filterChanged), for: .valueChanged)
@@ -133,17 +105,60 @@ final class TodoViewController: UIViewController {
     }
 
     private func setupBindings() {
+        // TodoViewModel is @MainActor, so callbacks already arrive on the main thread.
         viewModel.onTodosUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.updateUI()
-            }
+            self?.updateUI()
         }
     }
 
+    private func makeDataSource() -> UITableViewDiffableDataSource<Int, UUID> {
+        UITableViewDiffableDataSource(tableView: tableView) { [weak self] tableView, indexPath, id in
+            guard let self,
+                  let item = self.viewModel.item(id: id),
+                  let cell = tableView.dequeueReusableCell(
+                    withIdentifier: TodoCell.reuseIdentifier, for: indexPath
+                  ) as? TodoCell
+            else {
+                return UITableViewCell()
+            }
+
+            cell.configure(with: item)
+            // Capture the stable id, never the indexPath.
+            cell.onCheckboxTapped = { [weak self] in
+                self?.viewModel.toggleTodo(id: id)
+            }
+            return cell
+        }
+    }
+
+    // MARK: - Rendering
     private func updateUI() {
-        tableView.reloadData()
-        let isEmpty = viewModel.numberOfTodos == 0
+        let ids = viewModel.filteredTodos.map(\.id)
+        let previousIds = Set(dataSource.snapshot().itemIdentifiers)
+
+        var snapshot = NSDiffableDataSourceSnapshot<Int, UUID>()
+        snapshot.appendSections([Self.mainSection])
+        snapshot.appendItems(ids)
+        // Rows that stayed on screen may have changed content (e.g. toggled).
+        snapshot.reconfigureItems(ids.filter(previousIds.contains))
+
+        dataSource.apply(snapshot, animatingDifferences: hasAppliedInitialSnapshot)
+        hasAppliedInitialSnapshot = true
+
+        let isEmpty = ids.isEmpty
         emptyStateView.isHidden = !isEmpty
+        if isEmpty {
+            let state = viewModel.emptyState
+            emptyStateView.configure(title: state.title, subtitle: state.subtitle)
+        }
+
+        updateSegmentTitles()
+    }
+
+    private func updateSegmentTitles() {
+        segmentedControl.setTitle(L10n.tr("todo.filter.all", viewModel.allTodos.count), forSegmentAt: TodoFilter.all.rawValue)
+        segmentedControl.setTitle(L10n.tr("todo.filter.active", viewModel.remainingCount), forSegmentAt: TodoFilter.active.rawValue)
+        segmentedControl.setTitle(L10n.tr("todo.filter.done", viewModel.completedCount), forSegmentAt: TodoFilter.completed.rawValue)
     }
 
     // MARK: - Actions
@@ -155,64 +170,54 @@ final class TodoViewController: UIViewController {
 
     @objc private func didTapAddButton() {
         let alert = UIAlertController(
-            title: "New Task",
-            message: "Enter the task description below",
+            title: L10n.tr("todo.alert.title"),
+            message: L10n.tr("todo.alert.message"),
             preferredStyle: .alert
         )
 
-        alert.addTextField { textField in
-            textField.placeholder = "e.g., Buy groceries, Read a book..."
-            textField.autocapitalizationType = .sentences
-        }
-
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self, weak alert] _ in
+        let addAction = UIAlertAction(title: L10n.tr("todo.alert.add"), style: .default) { [weak self, weak alert] _ in
             guard let text = alert?.textFields?.first?.text else { return }
             self?.viewModel.addTodo(title: text)
         }
+        addAction.isEnabled = false
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addTextField { textField in
+            textField.placeholder = L10n.tr("todo.alert.placeholder")
+            textField.autocapitalizationType = .sentences
+            textField.returnKeyType = .done
+            // Enable "Add" only when the text is not blank.
+            textField.addAction(UIAction { [weak addAction] action in
+                let text = (action.sender as? UITextField)?.text ?? ""
+                addAction?.isEnabled = !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            }, for: .editingChanged)
+        }
 
+        alert.addAction(UIAlertAction(title: L10n.tr("common.cancel"), style: .cancel))
         alert.addAction(addAction)
-        alert.addAction(cancelAction)
+        alert.preferredAction = addAction
 
         present(alert, animated: true)
     }
 }
 
-// MARK: - UITableViewDataSource & UITableViewDelegate
-extension TodoViewController: UITableViewDataSource, UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfTodos
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.reuseIdentifier, for: indexPath) as? TodoCell,
-              let item = viewModel.item(at: indexPath.row) else {
-            return UITableViewCell()
-        }
-
-        cell.configure(with: item)
-        cell.onCheckboxTapped = { [weak self] in
-            self?.viewModel.toggleTodo(at: indexPath.row)
-        }
-
-        return cell
-    }
+// MARK: - UITableViewDelegate
+extension TodoViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        viewModel.toggleTodo(at: indexPath.row)
+        guard let id = dataSource.itemIdentifier(for: indexPath) else { return }
+        viewModel.toggleTodo(id: id)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
-            self?.viewModel.deleteTodo(at: indexPath.row)
+        guard let id = dataSource.itemIdentifier(for: indexPath) else { return nil }
+
+        let deleteAction = UIContextualAction(style: .destructive, title: L10n.tr("common.delete")) { [weak self] _, _, completionHandler in
+            self?.viewModel.deleteTodo(id: id)
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
 
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        return configuration
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

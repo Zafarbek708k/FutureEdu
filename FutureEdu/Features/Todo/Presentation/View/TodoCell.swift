@@ -20,7 +20,8 @@ final class TodoCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         return label
     }()
@@ -28,7 +29,8 @@ final class TodoCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = .secondaryLabel
         return label
     }()
@@ -48,6 +50,10 @@ final class TodoCell: UITableViewCell {
         return formatter
     }()
 
+    private static let symbolConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
+    private static let checkedImage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: symbolConfig)
+    private static let uncheckedImage = UIImage(systemName: "circle", withConfiguration: symbolConfig)
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -56,6 +62,11 @@ final class TodoCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onCheckboxTapped = nil
     }
 
     private func setupViews() {
@@ -70,13 +81,20 @@ final class TodoCell: UITableViewCell {
 
         checkboxButton.addTarget(self, action: #selector(checkboxAction), for: .touchUpInside)
 
-        NSLayoutConstraint.activate([
-            checkboxButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            checkboxButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkboxButton.widthAnchor.constraint(equalToConstant: 28),
-            checkboxButton.heightAnchor.constraint(equalToConstant: 28),
+        // The whole row is one accessibility element; activating it toggles
+        // the task via tableView(_:didSelectRowAt:).
+        isAccessibilityElement = true
 
-            textStackView.leadingAnchor.constraint(equalTo: checkboxButton.trailingAnchor, constant: 14),
+        NSLayoutConstraint.activate([
+            // 44x44 pt tap target (Apple HIG minimum); the icon itself stays 22 pt.
+            checkboxButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            checkboxButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkboxButton.widthAnchor.constraint(equalToConstant: 44),
+            checkboxButton.heightAnchor.constraint(equalToConstant: 44),
+            checkboxButton.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 4),
+            checkboxButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -4),
+
+            textStackView.leadingAnchor.constraint(equalTo: checkboxButton.trailingAnchor, constant: 6),
             textStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             textStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             textStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
@@ -88,27 +106,34 @@ final class TodoCell: UITableViewCell {
     }
 
     func configure(with item: TodoItem) {
-        dateLabel.text = Self.dateFormatter.string(from: item.createdAt)
+        let locale = Localizer.shared.locale
+        if Self.dateFormatter.locale != locale {
+            Self.dateFormatter.locale = locale
+        }
+        let dateText = Self.dateFormatter.string(from: item.createdAt)
+        dateLabel.text = dateText
 
         if item.isCompleted {
-            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
-            let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: symbolConfig)
-            checkboxButton.setImage(image, for: .normal)
+            checkboxButton.setImage(Self.checkedImage, for: .normal)
             checkboxButton.tintColor = .systemGreen
 
-            let attributeString = NSMutableAttributedString(string: item.title)
-            attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
-            attributeString.addAttribute(.foregroundColor, value: UIColor.tertiaryLabel, range: NSRange(location: 0, length: attributeString.length))
-            titleLabel.attributedText = attributeString
+            let fullRange = NSRange(location: 0, length: (item.title as NSString).length)
+            let attributed = NSMutableAttributedString(string: item.title)
+            attributed.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: fullRange)
+            attributed.addAttribute(.foregroundColor, value: UIColor.tertiaryLabel, range: fullRange)
+            titleLabel.attributedText = attributed
         } else {
-            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
-            let image = UIImage(systemName: "circle", withConfiguration: symbolConfig)
-            checkboxButton.setImage(image, for: .normal)
+            checkboxButton.setImage(Self.uncheckedImage, for: .normal)
             checkboxButton.tintColor = .systemGray3
 
             titleLabel.attributedText = nil
             titleLabel.text = item.title
             titleLabel.textColor = .label
         }
+
+        accessibilityLabel = item.title
+        accessibilityValue = L10n.tr(item.isCompleted ? "todo.a11y.completed" : "todo.a11y.notCompleted")
+        accessibilityHint = dateText
+        accessibilityTraits = item.isCompleted ? [.button, .selected] : [.button]
     }
 }

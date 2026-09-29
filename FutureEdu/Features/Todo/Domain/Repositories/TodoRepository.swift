@@ -7,5 +7,5 @@ import Foundation
 
 protocol TodoRepository {
     func getTodos() -> [TodoItem]
-    func saveTodos(_ todos: [TodoItem])
+    func saveTodos(_ todos: [TodoItem]) throws
 }

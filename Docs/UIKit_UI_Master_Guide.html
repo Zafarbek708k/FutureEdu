@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIKit UI Dasturlash Bo'yicha Mukammal Qo'llanma</title>
+<style>
+    @page {
+        size: A4;
+        margin: 20mm 15mm;
+        @bottom-right {
+            content: counter(page);
+        }
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "SF Pro Display", Helvetica, Arial, sans-serif;
+        line-height: 1.65;
+        color: #1d1d1f;
+        background-color: #fbfbfd;
+        margin: 0;
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 48px 56px;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .doc-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #000000;
+        border-bottom: 3px solid #0071e3;
+        padding-bottom: 14px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        letter-spacing: -0.5px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin-top: 36px;
+        margin-bottom: 16px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #e5e5ea;
+        page-break-after: avoid;
+    }
+
+    .subsection-title {
+        font-size: 19px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-top: 24px;
+        margin-bottom: 12px;
+        page-break-after: avoid;
+    }
+
+    .minor-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #0071e3;
+        margin-top: 18px;
+        margin-bottom: 8px;
+        page-break-after: avoid;
+    }
+
+    p {
+        margin: 10px 0 16px;
+        font-size: 15px;
+        color: #333336;
+    }
+
+    code {
+        font-family: "SF Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+        font-size: 13.5px;
+        background-color: #f2f2f7;
+        color: #d12765;
+        padding: 2px 6px;
+        border-radius: 5px;
+        border: 1px solid #e5e5ea;
+    }
+
+    .code-container {
+        background: #1e1e1e;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0 24px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        page-break-inside: avoid;
+    }
+
+    .code-header {
+        background: #2d2d2d;
+        padding: 8px 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .lang-tag {
+        margin-left: auto;
+        color: #8e8e93;
+        font-size: 12px;
+        font-family: -apple-system, sans-serif;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    pre {
+        margin: 0;
+        padding: 16px 20px;
+        overflow-x: auto;
+    }
+
+    pre code {
+        background: transparent;
+        color: #f8f8f2;
+        padding: 0;
+        border: none;
+        font-size: 13.5px;
+        line-height: 1.55;
+        display: block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14.5px;
+        page-break-inside: avoid;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e5e5ea;
+    }
+
+    th, td {
+        padding: 12px 16px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f5f5f7;
+        font-weight: 600;
+        color: #1d1d1f;
+        border-bottom: 2px solid #e5e5ea;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fbfbfd;
+    }
+
+    tr:not(:last-child) td {
+        border-bottom: 1px solid #f2f2f7;
+    }
+
+    ul, ol {
+        margin: 10px 0 18px 24px;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 8px;
+        font-size: 15px;
+        color: #333336;
+    }
+
+    .callout {
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin: 20px 0;
+        border-left: 4px solid;
+        page-break-inside: avoid;
+    }
+
+    .callout-note {
+        background-color: #e8f4fd;
+        border-color: #0071e3;
+    }
+
+    .callout-tip {
+        background-color: #eafaf1;
+        border-color: #34c759;
+    }
+
+    .callout-warning {
+        background-color: #fff9e6;
+        border-color: #ff9500;
+    }
+
+    .badge {
+        font-weight: 700;
+        font-size: 12.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-block;
+        margin-bottom: 6px;
+    }
+    .callout-note .badge { color: #0071e3; }
+    .callout-tip .badge { color: #248a3d; }
+    .callout-warning .badge { color: #b25000; }
+
+    .callout-body {
+        font-size: 14.5px;
+        color: #1d1d1f;
+        line-height: 1.5;
+    }
+
+    .flowchart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin: 24px 0;
+        padding: 20px;
+        background: #f5f5f7;
+        border-radius: 12px;
+        border: 1px solid #e5e5ea;
+        page-break-inside: avoid;
+    }
+
+    .flow-step {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        background: #ffffff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1px solid #d2d2d7;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .flow-pill {
+        background: #0071e3;
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 14px;
+        font-family: monospace;
+        font-size: 13px;
+        font-weight: 600;
+        margin-right: 14px;
+        white-space: nowrap;
+    }
+
+    .flow-desc {
+        font-size: 13.5px;
+        color: #48484a;
+    }
+
+    .flow-arrow {
+        font-size: 18px;
+        color: #8e8e93;
+        font-weight: bold;
+    }
+
+    .divider {
+        border: none;
+        border-top: 1px solid #e5e5ea;
+        margin: 32px 0;
+    }
+
+    a {
+        color: #0071e3;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    @media print {
+        body {
+            background: #fff;
+            padding: 0;
+        }
+        .container {
+            box-shadow: none;
+            padding: 0;
+            max-width: 100%;
+        }
+        .code-container {
+            border: 1px solid #333;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="doc-title">UIKit UI Dasturlash Bo'yicha Mukammal Qo'llanma (Zero to Hero)</h1>
+<p>Ushbu qo'llanma UIKit'da dasturlashni boshlayotgan, ayniqsa Flutter tajribasiga ega bo'lgan dasturchilar uchun mo'ljallangan. Unda sodda <code>frame</code> tushunchasidan boshlab, <code>Auto Layout</code>, barcha asosiy UI komponentlar, formalar, pickerlar, ekran navigatsiyasi va eng murakkab animatsiyalargacha bosqichma-bosqich yoritilgan.</p>
+<hr class="divider">
+<h2 class="section-title">Mundarija</h2>
+<ul><li><a href="#1-mental-model-flutter-vs-uikit-ui">Mental Model: Flutter vs UIKit UI</a></li><li><a href="#2-frame-based-layout-vs-auto-layout">Frame-based Layout vs Auto Layout</a></li><li><a href="#3-uiviewcontroller-va-ekranning-hayot-davri-lifecycle">UIViewController va Ekranning Hayot Davri (Lifecycle)</a></li><li><a href="#4-asosiy-ui-elementlar">Asosiy UI Elementlar (Label, Button, Image, StackView)</a></li><li><a href="#5-dizayn-va-styling">Dizayn va Styling (Burchaklar, Soyalar, Gradient, Blur)</a></li><li><a href="#6-input-widgetlar">Input Widgetlar (TextField, TextView, Switch, Slider)</a></li><li><a href="#7-date--time-picker">Date & Time Picker (UIDatePicker)</a></li><li><a href="#8-rasm-va-fayl-tanlash">Rasm va Fayl Tanlash (Pickerlar)</a></li><li><a href="#9-navigatsiya-va-ekran-otishlari">Navigatsiya va Ekran O'tishlari</a></li><li><a href="#10-ekranlararo-malumot-olib-otish">Ekranlararo Ma'lumot Olib O'tish (Data Passing)</a></li><li><a href="#11-animatsiyalar">Animatsiyalar (Soddadan Murakkabgacha)</a></li></ul>
+<hr class="divider">
+<h2 class="section-title">1. Mental Model: Flutter vs UIKit UI</h2>
+<p>Flutter deklarativ (Declarative) — siz holatga (state) qarab "UI qanday ko'rinishi kerak"ligini aytasiz (<code>build()</code> qayta ishlaydi).</p>
+<p>UIKit esa imperativ (Imperative) — siz UI obyektini bir marta yaratasiz, ekranga qo'shasiz (<code>addSubview</code>) va keyinchalik uning xususiyatlarini to'g'ridan-to'g'ri o'zgartirasiz (<code>label.text = "Salom"</code>).</p>
+<table><thead><tr><th>Flutter Konsepsiyasi</th><th>UIKit Ekvivalenti</th><th>Izoh</th></tr></thead><tbody><tr><td><code>Widget</code></td><td><code>UIView</code> (yoki uning subklassi)</td><td>Ekranda chiziladigan barcha narsalar</td></tr><tr><td><code>Scaffold</code> / <code>Screen</code></td><td><code>UIViewController</code></td><td>Ekranni boshqaruvchi kontroller</td></tr><tr><td><code>Column</code> / <code>Row</code></td><td><code>UIStackView</code></td><td>Vertikal yoki gorizontal tartiblash</td></tr><tr><td><code>Container</code> / <code>SizedBox</code></td><td><code>UIView</code></td><td>Bo'sh joy yoki fon qutisi</td></tr><tr><td><code>Text</code></td><td><code>UILabel</code></td><td>Matn chiqarish</td></tr><tr><td><code>ElevatedButton</code></td><td><code>UIButton</code> (Configuration bilan)</td><td>Tugma</td></tr><tr><td><code>Image.asset</code></td><td><code>UIImageView</code></td><td>Rasm</td></tr><tr><td><code>TextField</code></td><td><code>UITextField</code> / <code>UITextView</code></td><td>Matn kiritish</td></tr><tr><td><code>ListView.builder</code></td><td><code>UITableView</code> / <code>UICollectionView</code></td><td>Ro'yxat ko'rinishi</td></tr><tr><td><code>Navigator.push</code></td><td><code>navigationController?.pushViewController</code></td><td>Navigatsiya</td></tr></tbody></table>
+<hr class="divider">
+<h2 class="section-title">2. Frame-based Layout vs Auto Layout</h2>
+<h3 class="subsection-title">2.1 Frame Nima va Nega U Yetarli Emas?</h3>
+<p><code>frame</code> — bu view'ning ota-onasiga nisbatan <strong>aniq koordinatalari va o'lchami</strong>:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>myView.frame = CGRect(x: 20, y: 100, width: 200, height: 50)</code></pre>
+                </div>
+<div class="callout callout-warning">
+            <div class="callout-header"><span class="badge">Muhim Ogohlantirish</span></div>
+            <div class="callout-body">Nimaga faqat <code>frame</code> bilan ishlash tavsiya etilmaydi?<br>1. iPhone o'lchamlari juda ko'p: iPhone SE (kichik), iPhone 16 Pro Max (ulkan), iPad. Aniq piksellarda yozilgan <code>frame</code> bitta ekranda chiroyli ko'rinsa, boshqasida chetga chiqib ketadi yoki kichrayib qoladi.<br>2. Ekran aylanganda (Orientation) <code>frame</code>larni qaytadan hisoblab chiqish kerak bo'ladi.<br>3. Dynamic Type (foydalanuvchi shriftni kattalashtirganda) frame moslashmaydi.</div>
+        </div>
+<h3 class="subsection-title">2.2 Auto Layout — Zamonaviy Yondashuv</h3>
+<p>Auto Layout — bu qoidalarga (Constraints) asoslangan tizim. Siz "x = 20 bo'lsin" demaysiz, balki <strong>"ekranning chap chetidan 20pt masofada tursin, eni ota-onasiga teng bo'lsin"</strong> deysiz.</p>
+<h4 class="minor-title">Eng Muhim Qoida:</h4>
+<p>Kodingizda Auto Layout ishlatmoqchi bo'lsangiz, <strong>HAR DOIM</strong> ushbu xususiyatni <code>false</code> qilishingiz shart:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>myView.translatesAutoresizingMaskIntoConstraints = false</code></pre>
+                </div>
+<p><em>(Agar buni yozmasangiz, iOS avtomatik ravishda eski frame qoidalarini qo'llaydi va siz yozgan cheklovlar ishlamaydi).</em></p>
+<h4 class="minor-title">NSLayoutAnchor Orqali Cheklovlar Berish:</h4>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let box = UIView()
+box.backgroundColor = .systemBlue
+box.translatesAutoresizingMaskIntoConstraints = false
+
+view.addSubview(box) // AVVAL view&#x27;ga qo&#x27;shiladi, KEYIN constraint beriladi!
+
+NSLayoutConstraint.activate([
+    // Yuqoridan Safe Area&#x27;ga nisbatan 20pt pastda
+    box.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+    
+    // Chapdan 16pt
+    box.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+    
+    // O&#x27;ngdan 16pt (manfiy son bilan ichkariga suriladi)
+    box.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+    
+    // Balandligi aniq 100pt
+    box.heightAnchor.constraint(equalToConstant: 100)
+])</code></pre>
+                </div>
+<h4 class="minor-title">Safe Area Nima?</h4>
+<p><code>view.safeAreaLayoutGuide</code> — bu iPhone'ning tepasidagi "Notch / Dynamic Island" va pastidagi "Home Bar"ni hisobga olgan xavfsiz zona. Kontentingiz Dynamic Island ostida qolib ketmasligi uchun <code>view.topAnchor</code> emas, balki <code>view.safeAreaLayoutGuide.topAnchor</code> ga bog'laysiz.</p>
+<hr class="divider">
+<h2 class="section-title">3. UIViewController va Ekranning Hayot Davri (Lifecycle)</h2>
+<p>Har bir ekran — bu <code>UIViewController</code>. U o'zining hayot davriga ega:</p>
+<div class="flowchart"><div class="flow-step"><div class="flow-pill">init()</div><div class="flow-desc">Klass xotiraga yuklanishi</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">loadView()</div><div class="flow-desc">Ekranning asosiy view'si yaratilishi</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">viewDidLoad()</div><div class="flow-desc">UI va bir martalik sozlamalar yuklanishi</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">viewWillAppear()</div><div class="flow-desc">Ekran foydalanuvchiga ko'rinishidan oldin</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">viewDidLayoutSubviews()</div><div class="flow-desc">Frame va Auto Layout to'liq hisoblanganda</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">viewDidAppear()</div><div class="flow-desc">Ekran foydalanuvchiga to'liq ko'ringanda</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">viewWillDisappear()</div><div class="flow-desc">Ekran yopilishni boshlaganda</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">viewDidDisappear()</div><div class="flow-desc">Ekran to'liq yopilganda</div></div><div class="flow-arrow">↓</div><div class="flow-step"><div class="flow-pill">deinit()</div><div class="flow-desc">Ekran xotiradan tozalanishi</div></div></div>
+<h3 class="subsection-title">Amalda qaysi metodda nima qilinadi?</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>class MyViewController: UIViewController {
+
+    // 1. UI elementlarni xususiyat (property) sifatida e&#x27;lon qilamiz
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = &quot;Asosiy Ekran&quot;
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Bu yerda bir martalik ishlar qilinadi:
+        view.backgroundColor = .systemBackground
+        setupUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Ekran har safar ko&#x27;ringanda yangilanishi kerak bo&#x27;lgan ma&#x27;lumotlar
+    }
+
+    private func setupUI() {
+        view.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+}</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">4. Asosiy UI Elementlar</h2>
+<h3 class="subsection-title">4.1 UILabel (Matnlar)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let label = UILabel()
+label.translatesAutoresizingMaskIntoConstraints = false
+label.text = &quot;Salom, iOS!&quot;
+label.textColor = .label                     // Dark/Light mode&#x27;ga avtomatik moslashuvchi rang
+label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+label.textAlignment = .center
+label.numberOfLines = 0                      // 0 = cheksiz qator (Flutter&#x27;dagi kabi matn sig&#x27;sa keyingi qatorga o&#x27;tadi)
+label.lineBreakMode = .byWordWrapping</code></pre>
+                </div>
+<h3 class="subsection-title">4.2 UIButton (Tugmalar — Zamonaviy iOS 15+ Yondashuv)</h3>
+<p>Eski <code>button.setTitle</code> o'rniga zamonaviy <code>UIButton.Configuration</code> ishlatiladi:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>var config = UIButton.Configuration.filled() // .tinted(), .gray(), .plain() mavjud
+config.title = &quot;Davom etish&quot;
+config.image = UIImage(systemName: &quot;arrow.right&quot;)
+config.imagePlacement = .trailing           // Rasm matndan o&#x27;ngda
+config.imagePadding = 8
+config.baseBackgroundColor = .systemBlue
+config.baseForegroundColor = .white
+config.cornerStyle = .capsule               // Oval tugma (.medium, .large ham bor)
+
+let button = UIButton(configuration: config)
+button.translatesAutoresizingMaskIntoConstraints = false
+
+// Bosish hodisasini tinglash (Action):
+button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+
+@objc private func buttonTapped() {
+    print(&quot;Tugma bosildi!&quot;)
+}</code></pre>
+                </div>
+<h3 class="subsection-title">4.3 UIImageView (Rasmlar)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let imageView = UIImageView()
+imageView.translatesAutoresizingMaskIntoConstraints = false
+imageView.image = UIImage(systemName: &quot;star.fill&quot;) // SF Symbol
+// Yoki Assets&#x27;dagi rasm: UIImage(named: &quot;my_photo&quot;)
+imageView.contentMode = .scaleAspectFill            // Flutter&#x27;dagi BoxFit.cover
+imageView.clipsToBounds = true                      // Chegaradan chiqqan qismini qirqib tashlash
+imageView.tintColor = .systemYellow</code></pre>
+                </div>
+<h3 class="subsection-title">4.4 UIStackView (Flutter'dagi <code>Column</code> va <code>Row</code>)</h3>
+<p>StackView bir nechta elementlarni avtomatik qator yoki ustun qilib terish uchun eng qulay vosita:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let stackView = UIStackView(arrangedSubviews: [titleLabel, imageView, button])
+stackView.translatesAutoresizingMaskIntoConstraints = false
+stackView.axis = .vertical             // .horizontal bo&#x27;lsa Row, .vertical bo&#x27;lsa Column
+stackView.spacing = 16                 // Elementlar orasidagi masofa
+stackView.alignment = .fill            // Elementlar kengligi (.center, .leading, .trailing)
+stackView.distribution = .fill         // O&#x27;lchamlarni taqsimlash
+
+view.addSubview(stackView)
+
+NSLayoutConstraint.activate([
+    stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+    stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+    stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+])</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">5. Dizayn va Styling</h2>
+<p>Har bir <code>UIView</code> orqasida uning grafik qatlami bo'lgan <code>CALayer</code> yotadi. Burchaklar, soyalar va chegaralar <code>layer</code> orqali sozlanadi.</p>
+<h3 class="subsection-title">5.1 Burchaklarni Yumaloqlash (Corner Radius)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>cardView.layer.cornerRadius = 16
+// Agar faqat ma&#x27;lum burchaklarni yumaloqlamoqchi bo&#x27;lsangiz:
+cardView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner] // Faqat yuqori burchaklar</code></pre>
+                </div>
+<h3 class="subsection-title">5.2 Chegaralar (Border)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>cardView.layer.borderWidth = 1.5
+cardView.layer.borderColor = UIColor.systemGray4.cgColor // Diqqat: .cgColor kutiladi</code></pre>
+                </div>
+<h3 class="subsection-title">5.3 Soyalar (Drop Shadow)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>cardView.layer.shadowColor = UIColor.black.cgColor
+cardView.layer.shadowOffset = CGSize(width: 0, height: 4) // X va Y yo&#x27;nalishidagi siljish
+cardView.layer.shadowOpacity = 0.15                       // Shaffoflik (0.0 dan 1.0 gacha)
+cardView.layer.shadowRadius = 8                           // Xiralashish radiusi
+cardView.layer.masksToBounds = false                      // true bo&#x27;lsa soya qirqilib ketadi!</code></pre>
+                </div>
+<div class="callout callout-tip">
+            <div class="callout-header"><span class="badge">Foydali Maslahat (Tip)</span></div>
+            <div class="callout-body">Soya va CornerRadius birga ishlatilganda:<br>Agar <code>clipsToBounds = true</code> qilsangiz, soya ko'rinmay qoladi. Yechim: Tashqi ota view'ga soya beriladi (<code>masksToBounds = false</code>), ichki subview'ga esa rasm va <code>cornerRadius</code> beriladi (<code>clipsToBounds = true</code>).</div>
+        </div>
+<h3 class="subsection-title">5.4 Gradient Fon (CAGradientLayer)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let gradientLayer = CAGradientLayer()
+gradientLayer.colors = [
+    UIColor.systemPurple.cgColor,
+    UIColor.systemBlue.cgColor
+]
+gradientLayer.startPoint = CGPoint(x: 0, y: 0) // Chap yuqori
+gradientLayer.endPoint = CGPoint(x: 1, y: 1)   // O&#x27;ng pastki
+gradientLayer.frame = view.bounds
+
+view.layer.insertSublayer(gradientLayer, at: 0) // Eng ostki qatlamga joylash</code></pre>
+                </div>
+<h3 class="subsection-title">5.5 Xiralashtirish Effekti (Glassmorphism / Blur)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial) // Zamonaviy oyna effekti
+let blurView = UIVisualEffectView(effect: blurEffect)
+blurView.translatesAutoresizingMaskIntoConstraints = false
+blurView.layer.cornerRadius = 20
+blurView.clipsToBounds = true
+
+view.addSubview(blurView)
+// Constraintlar beriladi...</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">6. Input Widgetlar</h2>
+<h3 class="subsection-title">6.1 UITextField (Bir qatorli matn kiritish)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let textField = UITextField()
+textField.translatesAutoresizingMaskIntoConstraints = false
+textField.placeholder = &quot;Telefon raqamingiz yoki emailingiz&quot;
+textField.borderStyle = .roundedRect
+textField.keyboardType = .emailAddress           // .numberPad, .phonePad, .default
+textField.isSecureTextEntry = false              // true bo&#x27;lsa parol ko&#x27;rinishida yashiradi (dots)
+textField.clearButtonMode = .whileEditing        // Matnni tozalovchi (x) tugmasi
+textField.returnKeyType = .done                  // Klaviaturadagi &#x27;Go&#x27;, &#x27;Search&#x27;, &#x27;Done&#x27; tugmasi
+
+// Hodisalarni tinglash (Delegate orqali):
+textField.delegate = self</code></pre>
+                </div>
+<p>Klaviaturani yopish uchun ekranning istalgan joyi bosilganda:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?) {
+    view.endEditing(true)
+}</code></pre>
+                </div>
+<h3 class="subsection-title">6.2 Zamonaviy Klaviatura Animatsiyasi (iOS 15+ keyboardLayoutGuide)</h3>
+<p>Eskidan klaviatura ochilganda TextField'ni to'sib qo'ymaslik uchun ancha kod yozilar edi. Endi bu 1 qatorda hal bo'ladi:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// Tugmani yoki inputni klaviatura balandligiga qarab avtomatik ko&#x27;tarish:
+bottomConstraint = sendButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -16)
+bottomConstraint.isActive = true</code></pre>
+                </div>
+<h3 class="subsection-title">6.3 UISwitch va UISegmentedControl</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// Switch (Toggle)
+let toggle = UISwitch()
+toggle.isOn = true
+toggle.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
+
+@objc func switchChanged(_ sender: UISwitch) {
+    print(&quot;Switch holati: \(sender.isOn)&quot;)
+}
+
+// Segmented Control (Tabs)
+let segment = UISegmentedControl(items: [&quot;Barchasi&quot;, &quot;Yangi&quot;, &quot;Arxiv&quot;])
+segment.selectedSegmentIndex = 0
+segment.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+
+@objc func segmentChanged(_ sender: UISegmentedControl) {
+    print(&quot;Tanlangan indeks: \(sender.selectedSegmentIndex)&quot;)
+}</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">7. Date & Time Picker</h2>
+<p>Apple zamonaviy iOS'da 3 xil ko'rinishdagi <code>UIDatePicker</code>ni taqdim etadi:</p>
+<ul><li><code>.inline</code> — to'liq ochiq taqvim (Calendar sheet).</li><li><code>.compact</code> — kichik, bosilganda ochiladigan badge.</li><li><code>.wheels</code> — klassik aylanuvchi g'ildirak.</li></ul>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let datePicker = UIDatePicker()
+datePicker.translatesAutoresizingMaskIntoConstraints = false
+datePicker.datePickerMode = .dateAndTime         // .date, .time, .countDownTimer
+datePicker.preferredDatePickerStyle = .inline    // .compact, .wheels
+datePicker.minimumDate = Date()                  // Faqat bugundan keyingi kunlar
+datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+
+view.addSubview(datePicker)
+
+@objc func dateChanged(_ sender: UIDatePicker) {
+    let formatter = DateFormatter()
+    formatter.dateFormat = &quot;dd.MM.yyyy, HH:mm&quot;
+    let dateString = formatter.string(from: sender.date)
+    print(&quot;Tanlangan sana: \(dateString)&quot;)
+}</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">8. Rasm va Fayl Tanlash</h2>
+<h3 class="subsection-title">8.1 PHPickerViewController (Zamonaviy Galereya Pickeri)</h3>
+<p>Foydalanuvchidan hech qanday maxsus permission (ruxsat) so'ramaydi va eng xavfsiz hisoblanadi.</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>import PhotosUI
+
+func openGallery() {
+    var config = PHPickerConfiguration()
+    config.selectionLimit = 1                     // 1 ta yoki ko&#x27;p rasm tanlash
+    config.filter = .images                       // .videos yoki .any(of: [.images, .livePhotos])
+
+    let picker = PHPickerViewController(configuration: config)
+    picker.delegate = self
+    present(picker, animated: true)
+}
+
+// Delegate:
+extension MyViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        guard let provider = results.first?.itemProvider,
+              provider.canLoadObject(ofClass: UIImage.self) else { return }
+
+        provider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+            guard let selectedImage = image as? UIImage else { return }
+            DispatchQueue.main.async {
+                self?.myImageView.image = selectedImage
+            }
+        }
+    }
+}</code></pre>
+                </div>
+<h3 class="subsection-title">8.2 UIDocumentPickerViewController (PDF / Fayl Tanlash)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>import UniformTypeIdentifiers
+
+func openFilePicker() {
+    let supportedTypes: [UTType] = [.pdf, .text, .image]
+    let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: supportedTypes, asCopy: true)
+    documentPicker.delegate = self
+    documentPicker.allowsMultipleSelection = false
+    present(documentPicker, animated: true)
+}
+
+extension MyViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let selectedURL = urls.first else { return }
+        print(&quot;Tanlangan fayl yo&#x27;li: \(selectedURL.path)&quot;)
+    }
+}</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">9. Navigatsiya va Ekran O'tishlari</h2>
+<p>iOS'da asosan 2 xil ekran ochish usuli bor: <strong>Push/Pop</strong> (Stack orqali) va <strong>Present/Dismiss</strong> (Modal orqali).</p>
+<h3 class="subsection-title">9.1 Push & Pop (UINavigationController)</h3>
+<p>Gorizontal siljib keladigan sahifalar uchun:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// 1. Yangi ekranni ochish (Push)
+let detailsVC = DetailsViewController()
+navigationController?.pushViewController(detailsVC, animated: true)
+
+// 2. Orqaga qaytish (Pop)
+navigationController?.popViewController(animated: true)
+
+// 3. Eng boshiga qaytish (Pop to Root)
+navigationController?.popToRootViewController(animated: true)</code></pre>
+                </div>
+<h3 class="subsection-title">9.2 Modal Oyna (Present & Dismiss)</h3>
+<p>Pastdan yuqoriga qalqib chiquvchi oyna:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let modalVC = FilterViewController()
+// To&#x27;liq ekran qilish uchun: modalVC.modalPresentationStyle = .fullScreen
+present(modalVC, animated: true)
+
+// O&#x27;zini yopish (ichki ekrandan):
+dismiss(animated: true)</code></pre>
+                </div>
+<h3 class="subsection-title">9.3 Zamonaviy Bottom Sheet (iOS 15+ Detents)</h3>
+<p>Yarim ekran yoki to'liq ekran bo'lib ochiladigan Telegram yoki Apple Maps uslubidagi oyna:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>let sheetVC = BottomMenuViewController()
+if let sheet = sheetVC.sheetPresentationController {
+    sheet.detents = [.medium(), .large()]        // Yarim va to&#x27;liq ochilish o&#x27;lchamlari
+    sheet.prefersGrabberVisible = true           // Yuqoridagi tortish chiziqchasi (grabber)
+    sheet.preferredCornerRadius = 24
+}
+present(sheetVC, animated: true)</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">10. Ekranlararo Ma'lumot Olib O'tish</h2>
+<h3 class="subsection-title">1-usul: Oldinga ma'lumot uzatish (Initializer orqali - Eng toza usul)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// 2-ekran:
+class DetailViewController: UIViewController {
+    private let productId: String
+
+    init(productId: String) {
+        self.productId = productId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+}
+
+// 1-ekrandan chaqirish:
+let detailVC = DetailViewController(productId: &quot;PR-12345&quot;)
+navigationController?.pushViewController(detailVC, animated: true)</code></pre>
+                </div>
+<h3 class="subsection-title">2-usul: Orqaga ma'lumot qaytarish (Closure / Callback orqali)</h3>
+<p>Flutter'dagi <code>Navigator.pop(context, result)</code> kabi eng oson usul:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// 2-ekran (FilterViewController):
+class FilterViewController: UIViewController {
+    var onFilterSelected: ((String) -&gt; Void)?
+
+    @objc func applyTapped() {
+        onFilterSelected?(&quot;Electronics&quot;)
+        dismiss(animated: true)
+    }
+}
+
+// 1-ekran (chaqiruvchi):
+let filterVC = FilterViewController()
+filterVC.onFilterSelected = { selectedCategory in
+    print(&quot;Tanlangan kategoriya: \(selectedCategory)&quot;)
+}
+present(filterVC, animated: true)</code></pre>
+                </div>
+<h3 class="subsection-title">3-usul: Delegate Pattern (Klassik iOS usuli)</h3>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// Shartnoma (Protocol):
+protocol EditProfileDelegate: AnyObject {
+    func didUpdateName(_ newName: String)
+}
+
+// 2-ekran:
+class EditProfileViewController: UIViewController {
+    weak var delegate: EditProfileDelegate?
+
+    @objc func saveTapped() {
+        delegate?.didUpdateName(&quot;Ali Valiyev&quot;)
+        dismiss(animated: true)
+    }
+}
+
+// 1-ekran:
+class ProfileViewController: UIViewController, EditProfileDelegate {
+    func openEdit() {
+        let editVC = EditProfileViewController()
+        editVC.delegate = self
+        present(editVC, animated: true)
+    }
+
+    func didUpdateName(_ newName: String) {
+        nameLabel.text = newName
+    }
+}</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">11. Animatsiyalar (Soddadan Murakkabgacha)</h2>
+<h3 class="subsection-title">1-Daraja: Standart UIView Animatsiyasi</h3>
+<p>O'zgartiriladigan xususiyatlar: <code>alpha</code>, <code>backgroundColor</code>, <code>transform</code>, <code>frame</code>.</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>UIView.animate(withDuration: 0.3) {
+    self.myView.alpha = 0.0                      // Yo&#x27;q bo&#x27;lish (Fade out)
+    self.myView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) // Kichrayish
+}</code></pre>
+                </div>
+<h3 class="subsection-title">2-Daraja: Prujinali Animatsiya (Spring Animation)</h3>
+<p>Haqiqiy fizik prujina effekti:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>UIView.animate(
+    withDuration: 0.6,
+    delay: 0,
+    usingSpringWithDamping: 0.6, // 0.1 bo&#x27;lsa juda tebranadi, 1.0 bo&#x27;lsa umuman tebranmaydi
+    initialSpringVelocity: 0.5,
+    options: [.curveEaseInOut]
+) {
+    self.myCard.transform = .identity // Asl holatiga qaytarish
+}</code></pre>
+                </div>
+<h3 class="subsection-title">3-Daraja: Auto Layout Cheklovlarini Animatsiya Qilish</h3>
+<p>Auto Layout'da view'ning <code>frame</code>ini emas, balki <strong>constraint'ning <code>constant</code>ini</strong> o'zgartirasiz:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>// Masalan balandlikni 50 dan 200 ga o&#x27;zgartiramiz:
+self.cardHeightConstraint.constant = 200
+
+UIView.animate(withDuration: 0.4) {
+    self.view.layoutIfNeeded() // Barcha o&#x27;zgarishlarni animatsiya bilan chizish buyrug&#x27;i
+}</code></pre>
+                </div>
+<h3 class="subsection-title">4-Daraja: Murakkab Core Animation (Masalan: Xatolikda Tebranish — Shake Effect)</h3>
+<p>Matn noto'g'ri kiritilganda TextField tebranib xatolik berishi:</p>
+<div class="code-container">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="lang-tag">swift</span></div>
+                    <pre><code>extension UIView {
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: &quot;position.x&quot;)
+        animation.values = [0, 10, -10, 10, -5, 5, 0]
+        animation.keyTimes = [0, 0.16, 0.33, 0.5, 0.66, 0.83, 1]
+        animation.duration = 0.4
+        animation.isAdditive = true
+        self.layer.add(animation, forKey: &quot;shake&quot;)
+    }
+}
+
+// Ishlatish:
+passwordTextField.shake()</code></pre>
+                </div>
+<hr class="divider">
+<h2 class="section-title">Xulosa va O'rganish Bo'yicha Tavsiyalar</h2>
+<ul><li><strong>Auto Layout'ga o'tish:</strong> Hech qachon piksellarni hisoblab <code>frame</code> bermang. Doim <code>translatesAutoresizingMaskIntoConstraints = false</code> qiling va <code>NSLayoutAnchor</code>dan foydalaning.</li><li><strong>UIStackView'dan maksimal foydalaning:</strong> Flutter'dagi <code>Column</code> va <code>Row</code> odatlarini <code>UIStackView</code> orqali tezda UIKit'da qo'llashingiz mumkin.</li><li><strong>Kichik tajribalar qiling:</strong> Har bir mavzuni (masalan, avval bitta chiroyli Card yaratish, keyin DatePicker ulash, so'ng Shake animatsiyasini sinash) alohida qismlarda test qilib boring.</li></ul>
+</div>
+</body>
+</html>

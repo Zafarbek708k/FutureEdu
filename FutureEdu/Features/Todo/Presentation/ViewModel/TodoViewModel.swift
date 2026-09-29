@@ -4,55 +4,74 @@
 //
 
 import Foundation
+import os
 
-enum TodoFilter: Int {
+enum TodoFilter: Int, CaseIterable {
     case all = 0
     case active = 1
     case completed = 2
 }
 
+private let logger = Logger(subsystem: "uz.karimov.info.FutureEdu", category: "Todo")
+
+@MainActor
 final class TodoViewModel {
     private let repository: TodoRepository
+
     private(set) var allTodos: [TodoItem] = []
+    /// Cached result of applying `currentFilter` to `allTodos`.
+    private(set) var filteredTodos: [TodoItem] = []
+    /// id -> index in `allTodos`, for O(1) lookups from the table view.
+    private var indexById: [UUID: Int] = [:]
 
     var currentFilter: TodoFilter = .all {
         didSet {
+            guard oldValue != currentFilter else { return }
+            rebuildCaches()
             onTodosUpdated?()
         }
     }
 
     var onTodosUpdated: (() -> Void)?
 
-    var filteredTodos: [TodoItem] {
-        switch currentFilter {
-        case .all:
-            return allTodos
-        case .active:
-            return allTodos.filter { !$0.isCompleted }
-        case .completed:
-            return allTodos.filter { $0.isCompleted }
-        }
-    }
-
-    var numberOfTodos: Int {
-        return filteredTodos.count
-    }
-
     var remainingCount: Int {
-        return allTodos.filter { !$0.isCompleted }.count
+        allTodos.reduce(0) { $0 + ($1.isCompleted ? 0 : 1) }
     }
 
     var completedCount: Int {
-        return allTodos.filter { $0.isCompleted }.count
+        allTodos.count - remainingCount
     }
 
-    init(repository: TodoRepository = TodoRepositoryImpl()) {
-        self.repository = repository
+    /// Texts for the empty-state view, depending on the active filter.
+    var emptyState: (title: String, subtitle: String) {
+        let key: String
+        switch currentFilter {
+        case .all: key = "todo.empty.all"
+        case .active: key = "todo.empty.active"
+        case .completed: key = "todo.empty.completed"
+        }
+        return (L10n.tr("\(key).title"), L10n.tr("\(key).subtitle"))
+    }
+
+    // Default arguments are evaluated in a nonisolated context, so MainActor-isolated
+    // defaults (SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor) are resolved inside the body.
+    init(repository: TodoRepository? = nil) {
+        self.repository = repository ?? TodoRepositoryImpl()
         loadTodos()
     }
 
+    // MARK: - Queries
+
+    func item(id: UUID) -> TodoItem? {
+        guard let index = indexById[id] else { return nil }
+        return allTodos[index]
+    }
+
+    // MARK: - Commands
+
     func loadTodos() {
         allTodos = repository.getTodos()
+        rebuildCaches()
         onTodosUpdated?()
     }
 
@@ -60,38 +79,44 @@ final class TodoViewModel {
         let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedTitle.isEmpty else { return }
 
-        let newTodo = TodoItem(title: trimmedTitle)
-        allTodos.insert(newTodo, at: 0)
-        persistTodos()
+        allTodos.insert(TodoItem(title: trimmedTitle), at: 0)
+        commit()
     }
 
-    func toggleTodo(at index: Int) {
-        guard index >= 0 && index < filteredTodos.count else { return }
-        let targetId = filteredTodos[index].id
+    func toggleTodo(id: UUID) {
+        guard let index = indexById[id] else { return }
+        allTodos[index].isCompleted.toggle()
+        commit()
+    }
 
-        if let originalIndex = allTodos.firstIndex(where: { $0.id == targetId }) {
-            allTodos[originalIndex].isCompleted.toggle()
-            persistTodos()
+    func deleteTodo(id: UUID) {
+        guard let index = indexById[id] else { return }
+        allTodos.remove(at: index)
+        commit()
+    }
+
+    // MARK: - Private
+
+    private func commit() {
+        rebuildCaches()
+        do {
+            try repository.saveTodos(allTodos)
+        } catch {
+            logger.error("Failed to save todos: \(error.localizedDescription, privacy: .public)")
         }
-    }
-
-    func deleteTodo(at index: Int) {
-        guard index >= 0 && index < filteredTodos.count else { return }
-        let targetId = filteredTodos[index].id
-
-        if let originalIndex = allTodos.firstIndex(where: { $0.id == targetId }) {
-            allTodos.remove(at: originalIndex)
-            persistTodos()
-        }
-    }
-
-    func item(at index: Int) -> TodoItem? {
-        guard index >= 0 && index < filteredTodos.count else { return nil }
-        return filteredTodos[index]
-    }
-
-    private func persistTodos() {
-        repository.saveTodos(allTodos)
         onTodosUpdated?()
+    }
+
+    private func rebuildCaches() {
+        indexById = Dictionary(uniqueKeysWithValues: allTodos.enumerated().map { ($1.id, $0) })
+
+        switch currentFilter {
+        case .all:
+            filteredTodos = allTodos
+        case .active:
+            filteredTodos = allTodos.filter { !$0.isCompleted }
+        case .completed:
+            filteredTodos = allTodos.filter { $0.isCompleted }
+        }
     }
 }

@@ -11,50 +11,59 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Programmatic root (no storyboard): a navigation controller hosting the
-        // Telegram-style messages screen, so we get large titles + search.
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let todoVC = TodoViewController()
-        let nav = UINavigationController(rootViewController: todoVC)
-        nav.navigationBar.prefersLargeTitles = true
+        // Must run before any UI is built so that strings use the saved language.
+        SettingsStore.shared.bootstrap()
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = nav
+        window.overrideUserInterfaceStyle = SettingsStore.shared.theme.interfaceStyle
+        window.rootViewController = MainTabBarController(selectedTab: .home)
         window.makeKeyAndVisible()
         self.window = window
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(themeDidChange), name: .appThemeDidChange, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(languageDidChange), name: .appLanguageDidChange, object: nil
+        )
+    }
+
+    // MARK: - Settings changes
+
+    @objc private func themeDidChange() {
+        guard let window else { return }
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
+            window.overrideUserInterfaceStyle = SettingsStore.shared.theme.interfaceStyle
+        }
+    }
+
+    /// Rebuilds the whole UI so every screen picks up the new language,
+    /// keeping the user on the tab they were on (Settings).
+    @objc private func languageDidChange() {
+        guard let window else { return }
+        let currentTab = (window.rootViewController as? MainTabBarController)?.currentTab ?? .home
+        let newRoot = MainTabBarController(selectedTab: currentTab)
+
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
+            let animationsWereEnabled = UIView.areAnimationsEnabled
+            UIView.setAnimationsEnabled(false)
+            window.rootViewController = newRoot
+            UIView.setAnimationsEnabled(animationsWereEnabled)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        NotificationCenter.default.removeObserver(self)
     }
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
+    func sceneDidBecomeActive(_ scene: UIScene) {}
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
+    func sceneWillResignActive(_ scene: UIScene) {}
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
+    func sceneWillEnterForeground(_ scene: UIScene) {}
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
-
+    func sceneDidEnterBackground(_ scene: UIScene) {}
 }
-
