@@ -9,10 +9,11 @@ final class HomeViewController: UIViewController {
 
     private let projects = HomeProject.all
     private let cellId = "ProjectCell"
+    private var hasAppeared = false
+    private var needsReload = false
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         table.dataSource = self
         table.delegate = self
@@ -25,18 +26,43 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
 
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    }
+
+    // Frame layout: the table fills the whole screen. It adds its own insets
+    // for the navigation bar and tab bar (contentInsetAdjustmentBehavior).
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // First appearance already shows fresh data from viewDidLoad.
+        guard hasAppeared else { return }
+
         // Refresh live subtitles (e.g. active task count) when coming back.
-        tableView.reloadData()
+        // In viewWillAppear the table may not be in the window yet, and reloading
+        // it then logs "UITableView was told to layout its visible cells … without
+        // being in the view hierarchy". So reload alongside the transition (the view
+        // is already in the transition container), or right after it appears.
+        if let coordinator = transitionCoordinator {
+            coordinator.animate(alongsideTransition: { [weak self] _ in
+                self?.tableView.reloadData()
+            })
+        } else if tableView.window != nil {
+            tableView.reloadData()
+        } else {
+            needsReload = true
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        hasAppeared = true
+        if needsReload {
+            needsReload = false
+            tableView.reloadData()
+        }
     }
 }
 

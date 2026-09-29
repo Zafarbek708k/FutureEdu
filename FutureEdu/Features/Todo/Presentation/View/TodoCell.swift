@@ -2,6 +2,15 @@
 //  TodoCell.swift
 //  FutureEdu
 //
+//  Frame-based cell:
+//   • layoutSubviews()  – positions the subviews
+//   • sizeThatFits(_:)  – tells the table how tall the cell must be
+//
+//   ┌──────────────────────────────────────────────┐
+//   │ 8 [ ○ 44×44 ] 6  Title (multi-line)       16 │
+//   │                  Date                        │
+//   └──────────────────────────────────────────────┘
+//
 
 import UIKit
 
@@ -10,16 +19,24 @@ final class TodoCell: UITableViewCell {
 
     var onCheckboxTapped: (() -> Void)?
 
-    private let checkboxButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.contentMode = .scaleAspectFit
-        return button
-    }()
+    // MARK: - Layout constants
+    private enum Metrics {
+        static let checkboxLeading: CGFloat = 8
+        static let checkboxSize: CGFloat = 44          // Apple HIG minimum tap target
+        static let checkboxToText: CGFloat = 6
+        static let textTrailing: CGFloat = 16
+        static let verticalPadding: CGFloat = 12
+        static let titleToDate: CGFloat = 4
+
+        /// x where the text column starts.
+        static var textX: CGFloat { checkboxLeading + checkboxSize + checkboxToText }
+    }
+
+    // MARK: - Subviews
+    private let checkboxButton = UIButton(type: .system)
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
@@ -28,19 +45,10 @@ final class TodoCell: UITableViewCell {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .caption1)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .secondaryLabel
         return label
-    }()
-
-    private let textStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.spacing = 4
-        return stack
     }()
 
     private static let dateFormatter: DateFormatter = {
@@ -54,6 +62,7 @@ final class TodoCell: UITableViewCell {
     private static let checkedImage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: symbolConfig)
     private static let uncheckedImage = UIImage(systemName: "circle", withConfiguration: symbolConfig)
 
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -74,37 +83,74 @@ final class TodoCell: UITableViewCell {
         backgroundColor = .secondarySystemGroupedBackground
 
         contentView.addSubview(checkboxButton)
-        contentView.addSubview(textStackView)
-
-        textStackView.addArrangedSubview(titleLabel)
-        textStackView.addArrangedSubview(dateLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(dateLabel)
 
         checkboxButton.addTarget(self, action: #selector(checkboxAction), for: .touchUpInside)
 
         // The whole row is one accessibility element; activating it toggles
         // the task via tableView(_:didSelectRowAt:).
         isAccessibilityElement = true
-
-        NSLayoutConstraint.activate([
-            // 44x44 pt tap target (Apple HIG minimum); the icon itself stays 22 pt.
-            checkboxButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            checkboxButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkboxButton.widthAnchor.constraint(equalToConstant: 44),
-            checkboxButton.heightAnchor.constraint(equalToConstant: 44),
-            checkboxButton.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 4),
-            checkboxButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -4),
-
-            textStackView.leadingAnchor.constraint(equalTo: checkboxButton.trailingAnchor, constant: 6),
-            textStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            textStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            textStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
-        ])
     }
 
+    // MARK: - Layout (frames)
+
+    /// Width available for the title/date column in a cell that is `cellWidth` wide.
+    private static func textWidth(forCellWidth cellWidth: CGFloat) -> CGFloat {
+        max(0, cellWidth - Metrics.textX - Metrics.textTrailing)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let bounds = contentView.bounds
+        let textWidth = Self.textWidth(forCellWidth: bounds.width)
+
+        // Checkbox: fixed size, vertically centered.
+        checkboxButton.frame = CGRect(
+            x: Metrics.checkboxLeading,
+            y: (bounds.height - Metrics.checkboxSize) / 2,
+            width: Metrics.checkboxSize,
+            height: Metrics.checkboxSize
+        )
+
+        // Title + date as one block, vertically centered.
+        let titleHeight = titleLabel.fittingHeight(forWidth: textWidth)
+        let dateHeight = dateLabel.fittingHeight(forWidth: textWidth)
+        let blockHeight = titleHeight + Metrics.titleToDate + dateHeight
+        let blockY = (bounds.height - blockHeight) / 2
+
+        titleLabel.frame = CGRect(x: Metrics.textX, y: blockY, width: textWidth, height: titleHeight)
+        dateLabel.frame = CGRect(x: Metrics.textX, y: titleLabel.frame.maxY + Metrics.titleToDate,
+                                 width: textWidth, height: dateHeight)
+    }
+
+    /// Height of the cell for a given width (content must already be configured).
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let textWidth = Self.textWidth(forCellWidth: size.width)
+        let textHeight = titleLabel.fittingHeight(forWidth: textWidth)
+            + Metrics.titleToDate
+            + dateLabel.fittingHeight(forWidth: textWidth)
+
+        let contentHeight = max(textHeight, Metrics.checkboxSize)
+        return CGSize(width: size.width, height: ceil(contentHeight + Metrics.verticalPadding * 2))
+    }
+
+    /// UITableView (rowHeight = automaticDimension) asks the cell for its size
+    /// through this method. We have no constraints, so answer with sizeThatFits.
+    override func systemLayoutSizeFitting(
+        _ targetSize: CGSize,
+        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
+        verticalFittingPriority: UILayoutPriority
+    ) -> CGSize {
+        sizeThatFits(CGSize(width: targetSize.width, height: .greatestFiniteMagnitude))
+    }
+
+    // MARK: - Actions
     @objc private func checkboxAction() {
         onCheckboxTapped?()
     }
 
+    // MARK: - Configure
     func configure(with item: TodoItem) {
         let locale = Localizer.shared.locale
         if Self.dateFormatter.locale != locale {
@@ -135,5 +181,7 @@ final class TodoCell: UITableViewCell {
         accessibilityValue = L10n.tr(item.isCompleted ? "todo.a11y.completed" : "todo.a11y.notCompleted")
         accessibilityHint = dateText
         accessibilityTraits = item.isCompleted ? [.button, .selected] : [.button]
+
+        setNeedsLayout()
     }
 }

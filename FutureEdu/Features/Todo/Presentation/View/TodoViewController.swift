@@ -22,14 +22,12 @@ final class TodoViewController: UIViewController {
             L10n.tr("todo.filter.active", 0),
             L10n.tr("todo.filter.done", 0)
         ])
-        control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = TodoFilter.all.rawValue
         return control
     }()
 
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.register(TodoCell.self, forCellReuseIdentifier: TodoCell.reuseIdentifier)
         table.rowHeight = UITableView.automaticDimension
         table.estimatedRowHeight = 60
@@ -86,22 +84,34 @@ final class TodoViewController: UIViewController {
 
         segmentedControl.addTarget(self, action: #selector(filterChanged), for: .valueChanged)
 
-        NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+    }
 
-            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+    // MARK: - Layout (frames)
 
-            emptyStateView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            emptyStateView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
-            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            emptyStateView.heightAnchor.constraint(equalToConstant: 200)
-        ])
+    /// Called every time the view's size or safe area changes
+    /// (rotation, large title collapsing, etc.). All frames are set here.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        let safe = view.safeAreaInsets          // space taken by nav bar, notch, tab bar…
+        let sidePadding: CGFloat = 16
+        let segmentHeight: CGFloat = 32
+
+        // Segmented control: under the nav bar, full width minus side padding.
+        segmentedControl.frame = CGRect(
+            x: safe.left + sidePadding,
+            y: safe.top + 8,
+            width: view.bounds.width - safe.left - safe.right - sidePadding * 2,
+            height: segmentHeight
+        )
+
+        // Table: from below the segmented control down to the very bottom.
+        // (The table itself adds bottom inset for the tab bar.)
+        let tableY = segmentedControl.frame.maxY + 8
+        tableView.frame = CGRect(x: 0, y: tableY, width: view.bounds.width, height: view.bounds.height - tableY)
+
+        // Empty state covers the table area and centers its content itself.
+        emptyStateView.frame = tableView.frame
     }
 
     private func setupBindings() {
@@ -134,15 +144,21 @@ final class TodoViewController: UIViewController {
     // MARK: - Rendering
     private func updateUI() {
         let ids = viewModel.filteredTodos.map(\.id)
-        let previousIds = Set(dataSource.snapshot().itemIdentifiers)
+        // Animate / reconfigure only while the table is on screen; doing it
+        // off-window makes UITableView lay out outside the view hierarchy.
+        let isOnScreen = tableView.window != nil
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, UUID>()
         snapshot.appendSections([Self.mainSection])
         snapshot.appendItems(ids)
-        // Rows that stayed on screen may have changed content (e.g. toggled).
-        snapshot.reconfigureItems(ids.filter(previousIds.contains))
 
-        dataSource.apply(snapshot, animatingDifferences: hasAppliedInitialSnapshot)
+        if isOnScreen {
+            // Rows that stayed on screen may have changed content (e.g. toggled).
+            let previousIds = Set(dataSource.snapshot().itemIdentifiers)
+            snapshot.reconfigureItems(ids.filter(previousIds.contains))
+        }
+
+        dataSource.apply(snapshot, animatingDifferences: hasAppliedInitialSnapshot && isOnScreen)
         hasAppliedInitialSnapshot = true
 
         let isEmpty = ids.isEmpty

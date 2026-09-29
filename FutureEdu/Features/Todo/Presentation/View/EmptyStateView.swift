@@ -2,15 +2,19 @@
 //  EmptyStateView.swift
 //  FutureEdu
 //
+//  Icon + title + subtitle, centered vertically. Frame-based layout.
+//
 
 import UIKit
 
 final class EmptyStateView: UIView {
 
+    private let iconSize: CGFloat = 60
+    private let sidePadding: CGFloat = 20
+
     private let imageView: UIImageView = {
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .light)
         let imageView = UIImageView(image: UIImage(systemName: "checklist", withConfiguration: config))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .systemGray3
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -18,7 +22,6 @@ final class EmptyStateView: UIView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .headline)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .secondaryLabel
@@ -29,7 +32,6 @@ final class EmptyStateView: UIView {
 
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .tertiaryLabel
@@ -51,29 +53,34 @@ final class EmptyStateView: UIView {
     func configure(title: String, subtitle: String) {
         titleLabel.text = title
         subtitleLabel.text = subtitle
+        setNeedsLayout()   // text changed -> heights may change
     }
 
     private func setupViews() {
-        translatesAutoresizingMaskIntoConstraints = false
         isUserInteractionEnabled = false
-
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+    }
 
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -30),
-            imageView.widthAnchor.constraint(equalToConstant: 60),
-            imageView.heightAnchor.constraint(equalToConstant: 60),
+    // Called by UIKit whenever this view's size changes (or after setNeedsLayout).
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+        let textWidth = bounds.width - sidePadding * 2
+        let titleHeight = titleLabel.fittingHeight(forWidth: textWidth)
+        let subtitleHeight = subtitleLabel.fittingHeight(forWidth: textWidth)
 
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
-            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
+        // Total height of the block, so we can center it vertically.
+        let blockHeight = iconSize + 12 + titleHeight + 6 + subtitleHeight
+        var y = (bounds.height - blockHeight) / 2
+
+        imageView.frame = CGRect(x: (bounds.width - iconSize) / 2, y: y, width: iconSize, height: iconSize)
+        y = imageView.frame.maxY + 12
+
+        titleLabel.frame = CGRect(x: sidePadding, y: y, width: textWidth, height: titleHeight)
+        y = titleLabel.frame.maxY + 6
+
+        subtitleLabel.frame = CGRect(x: sidePadding, y: y, width: textWidth, height: subtitleHeight)
     }
 }

@@ -18,7 +18,6 @@ final class FutureViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         table.dataSource = self
         table.delegate = self
@@ -31,12 +30,13 @@ final class FutureViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
 
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    }
+
+    // Frame layout: the table fills the whole screen. It adds its own insets
+    // for the navigation bar and tab bar (contentInsetAdjustmentBehavior).
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
 }
 

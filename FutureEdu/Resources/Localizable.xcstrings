@@ -1,1616 +1,1619 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "common.cancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "common.cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отмена"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bekor qilish"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bekor qilish"
           }
         }
       }
     },
-    "common.delete": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
+    "common.delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Удалить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oʻchirish"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oʻchirish"
           }
         }
       }
     },
-    "docs.architecture.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Every project is a separate feature module built with Clean Architecture:\n\n• Domain — entities and repository protocols\n• Data — repository implementations and local storage\n• Presentation — MVVM: view models and UIKit views\n\nThe whole UI is built in code, without storyboards."
+    "docs.architecture.body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every project is a separate feature module built with Clean Architecture:\n\n• Domain — entities and repository protocols\n• Data — repository implementations and local storage\n• Presentation — MVVM: view models and UIKit views\n\nThe whole UI is built in code, without storyboards."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Каждый проект — отдельный модуль на основе Clean Architecture:\n\n• Domain — сущности и протоколы репозиториев\n• Data — реализации репозиториев и локальное хранилище\n• Presentation — MVVM: view model и UIKit-представления\n\nВесь интерфейс создан в коде, без storyboard."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Каждый проект — отдельный модуль на основе Clean Architecture:\n\n• Domain — сущности и протоколы репозиториев\n• Data — реализации репозиториев и локальное хранилище\n• Presentation — MVVM: view model и UIKit-представления\n\nВесь интерфейс создан в коде, без storyboard."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Har bir loyiha Clean Architecture asosidagi alohida modul:\n\n• Domain — entity va repository protokollari\n• Data — repository realizatsiyalari va mahalliy xotira\n• Presentation — MVVM: view model va UIKit view'lar\n\nButun interfeys storyboard'siz, kod orqali yaratilgan."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Har bir loyiha Clean Architecture asosidagi alohida modul:\n\n• Domain — entity va repository protokollari\n• Data — repository realizatsiyalari va mahalliy xotira\n• Presentation — MVVM: view model va UIKit view'lar\n\nButun interfeys storyboard'siz, kod orqali yaratilgan."
           }
         }
       }
     },
-    "docs.architecture.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Architecture"
+    "docs.architecture.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Architecture"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Архитектура"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Архитектура"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arxitektura"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arxitektura"
           }
         }
       }
     },
-    "docs.localization.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The app supports Uzbek, Russian and English, and system, light or dark appearance.\n\nBoth can be changed at any time in Settings — no restart needed."
+    "docs.localization.body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The app supports Uzbek, Russian and English, and system, light or dark appearance.\n\nBoth can be changed at any time in Settings — no restart needed."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Приложение поддерживает узбекский, русский и английский языки, а также системную, светлую и тёмную темы.\n\nИх можно изменить в любой момент в Настройках — перезапуск не нужен."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложение поддерживает узбекский, русский и английский языки, а также системную, светлую и тёмную темы.\n\nИх можно изменить в любой момент в Настройках — перезапуск не нужен."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ilova oʻzbek, rus va ingliz tillarini hamda tizim, yorugʻ va qorongʻi mavzularni qoʻllab-quvvatlaydi.\n\nIkkalasini ham istalgan vaqtda Sozlamalarda oʻzgartirish mumkin — qayta ishga tushirish shart emas."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilova oʻzbek, rus va ingliz tillarini hamda tizim, yorugʻ va qorongʻi mavzularni qoʻllab-quvvatlaydi.\n\nIkkalasini ham istalgan vaqtda Sozlamalarda oʻzgartirish mumkin — qayta ishga tushirish shart emas."
           }
         }
       }
     },
-    "docs.localization.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Languages & themes"
+    "docs.localization.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Languages & themes"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Языки и темы"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Языки и темы"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tillar va mavzular"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillar va mavzular"
           }
         }
       }
     },
-    "docs.release.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Projects move through three stages: Research → Planned → In progress.\n\nWhen a project is ready, it moves from the Future tab to Home and becomes available to everyone."
+    "docs.release.body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Projects move through three stages: Research → Planned → In progress.\n\nWhen a project is ready, it moves from the Future tab to Home and becomes available to everyone."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проекты проходят три этапа: Исследование → Запланировано → В работе.\n\nКогда проект готов, он переходит из вкладки «Будущее» на «Главную» и становится доступен всем."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проекты проходят три этапа: Исследование → Запланировано → В работе.\n\nКогда проект готов, он переходит из вкладки «Будущее» на «Главную» и становится доступен всем."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loyihalar uch bosqichdan oʻtadi: Tadqiqot → Rejada → Jarayonda.\n\nLoyiha tayyor boʻlgach, u «Kelajak» boʻlimidan «Asosiy» boʻlimiga koʻchadi va hamma uchun ochiladi."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loyihalar uch bosqichdan oʻtadi: Tadqiqot → Rejada → Jarayonda.\n\nLoyiha tayyor boʻlgach, u «Kelajak» boʻlimidan «Asosiy» boʻlimiga koʻchadi va hamma uchun ochiladi."
           }
         }
       }
     },
-    "docs.release.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Release process"
+    "docs.release.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Release process"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Процесс релиза"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процесс релиза"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reliz jarayoni"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reliz jarayoni"
           }
         }
       }
     },
-    "future.detail.features": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Planned features"
+    "future.detail.features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planned features"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Планируемые функции"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Планируемые функции"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rejadagi imkoniyatlar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rejadagi imkoniyatlar"
           }
         }
       }
     },
-    "future.detail.version": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Version %@"
+    "future.detail.version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Версия %@"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Версия %@"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Versiya %@"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versiya %@"
           }
         }
       }
     },
-    "future.flashcards.f1": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Decks and cards"
+    "future.flashcards.f1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decks and cards"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Колоды и карточки"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Колоды и карточки"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toʻplamlar va kartochkalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toʻplamlar va kartochkalar"
           }
         }
       }
     },
-    "future.flashcards.f2": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spaced repetition"
+    "future.flashcards.f2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spaced repetition"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Интервальное повторение"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Интервальное повторение"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oraliqli takrorlash"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oraliqli takrorlash"
           }
         }
       }
     },
-    "future.flashcards.f3": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Import from CSV"
+    "future.flashcards.f3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import from CSV"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Импорт из CSV"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт из CSV"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CSV dan import"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CSV dan import"
           }
         }
       }
     },
-    "future.flashcards.summary": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learn words and terms with spaced repetition that shows each card right before you forget it."
+    "future.flashcards.summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn words and terms with spaced repetition that shows each card right before you forget it."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Учите слова и термины с интервальным повторением: карточка появляется прямо перед тем, как вы её забудете."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Учите слова и термины с интервальным повторением: карточка появляется прямо перед тем, как вы её забудете."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soʻz va atamalarni oraliqli takrorlash usulida oʻrganing: har bir kartochka unutishingizdan oldin koʻrsatiladi."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soʻz va atamalarni oraliqli takrorlash usulida oʻrganing: har bir kartochka unutishingizdan oldin koʻrsatiladi."
           }
         }
       }
     },
-    "future.flashcards.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Flashcards"
+    "future.flashcards.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flashcards"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Карточки"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Карточки"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kartochkalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartochkalar"
           }
         }
       }
     },
-    "future.focus.f1": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Custom work and break intervals"
+    "future.focus.f1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom work and break intervals"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Настраиваемые интервалы работы и отдыха"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настраиваемые интервалы работы и отдыха"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ish va tanaffus vaqtini sozlash"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ish va tanaffus vaqtini sozlash"
           }
         }
       }
     },
-    "future.focus.f2": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily focus statistics"
+    "future.focus.f2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily focus statistics"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ежедневная статистика фокуса"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ежедневная статистика фокуса"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kunlik fokus statistikasi"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik fokus statistikasi"
           }
         }
       }
     },
-    "future.focus.f3": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Session reminders"
+    "future.focus.f3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session reminders"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Напоминания о сессиях"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Напоминания о сессиях"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sessiya eslatmalari"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sessiya eslatmalari"
           }
         }
       }
     },
-    "future.focus.summary": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A Pomodoro-style timer that helps you study in focused sessions with short breaks."
+    "future.focus.summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Pomodoro-style timer that helps you study in focused sessions with short breaks."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Таймер в стиле Помодоро: учитесь сфокусированными сессиями с короткими перерывами."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Таймер в стиле Помодоро: учитесь сфокусированными сессиями с короткими перерывами."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Qisqa tanaffuslar bilan diqqatni jamlab oʻqishga yordam beradigan Pomodoro uslubidagi taymer."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qisqa tanaffuslar bilan diqqatni jamlab oʻqishga yordam beradigan Pomodoro uslubidagi taymer."
           }
         }
       }
     },
-    "future.focus.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Focus Timer"
+    "future.focus.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus Timer"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Фокус-таймер"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фокус-таймер"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fokus taymer"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fokus taymer"
           }
         }
       }
     },
-    "future.habits.f1": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily streaks"
+    "future.habits.f1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily streaks"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ежедневные серии"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ежедневные серии"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kunlik ketma-ketlik"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik ketma-ketlik"
           }
         }
       }
     },
-    "future.habits.f2": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reminders"
+    "future.habits.f2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Напоминания"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Напоминания"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eslatmalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eslatmalar"
           }
         }
       }
     },
-    "future.habits.f3": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home Screen widgets"
+    "future.habits.f3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home Screen widgets"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Виджеты на экране «Домой»"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Виджеты на экране «Домой»"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bosh ekran vidjetlari"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bosh ekran vidjetlari"
           }
         }
       }
     },
-    "future.habits.summary": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Build study habits day by day and keep your streak going."
+    "future.habits.summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build study habits day by day and keep your streak going."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Формируйте учебные привычки день за днём и не прерывайте серию."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Формируйте учебные привычки день за днём и не прерывайте серию."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oʻqish odatlarini kundan-kunga shakllantiring va ketma-ketlikni uzmang."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oʻqish odatlarini kundan-kunga shakllantiring va ketma-ketlikni uzmang."
           }
         }
       }
     },
-    "future.habits.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Habit Tracker"
+    "future.habits.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habit Tracker"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Трекер привычек"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Трекер привычек"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Odatlar kuzatuvchisi"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odatlar kuzatuvchisi"
           }
         }
       }
     },
-    "future.notes.f1": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Folders and tags"
+    "future.notes.f1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folders and tags"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Папки и теги"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Папки и теги"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Papkalar va teglar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Papkalar va teglar"
           }
         }
       }
     },
-    "future.notes.f2": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Full-text search"
+    "future.notes.f2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full-text search"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Полнотекстовый поиск"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Полнотекстовый поиск"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toʻliq matnli qidiruv"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toʻliq matnli qidiruv"
           }
         }
       }
     },
-    "future.notes.f3": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Markdown formatting"
+    "future.notes.f3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markdown formatting"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Форматирование Markdown"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Форматирование Markdown"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Markdown formatlash"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markdown formatlash"
           }
         }
       }
     },
-    "future.notes.summary": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Quick notes with folders, search and Markdown formatting — all stored on your device."
+    "future.notes.summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick notes with folders, search and Markdown formatting — all stored on your device."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Быстрые заметки с папками, поиском и Markdown-форматированием — всё хранится на устройстве."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Быстрые заметки с папками, поиском и Markdown-форматированием — всё хранится на устройстве."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Papkalar, qidiruv va Markdown formatlash bilan tezkor qaydlar — hammasi qurilmangizda saqlanadi."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Papkalar, qidiruv va Markdown formatlash bilan tezkor qaydlar — hammasi qurilmangizda saqlanadi."
           }
         }
       }
     },
-    "future.notes.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notes"
+    "future.notes.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Заметки"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заметки"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Qaydlar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qaydlar"
           }
         }
       }
     },
-    "future.section.docs": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Docs"
+    "future.section.docs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Docs"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Документация"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Документация"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hujjatlar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hujjatlar"
           }
         }
       }
     },
-    "future.section.upcoming": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Upcoming projects"
+    "future.section.upcoming" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upcoming projects"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Будущие проекты"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Будущие проекты"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kelgusi loyihalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kelgusi loyihalar"
           }
         }
       }
     },
-    "future.status.inProgress": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "In progress"
+    "future.status.inProgress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In progress"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В работе"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В работе"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jarayonda"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jarayonda"
           }
         }
       }
     },
-    "future.status.planned": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Planned"
+    "future.status.planned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planned"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Запланировано"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запланировано"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rejada"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rejada"
           }
         }
       }
     },
-    "future.status.research": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Research"
+    "future.status.research" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Research"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Исследование"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Исследование"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tadqiqotda"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tadqiqotda"
           }
         }
       }
     },
-    "future.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Roadmap"
+    "future.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roadmap"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дорожная карта"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дорожная карта"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yoʻl xaritasi"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yoʻl xaritasi"
           }
         }
       }
     },
-    "home.footer.more": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More projects are on the way — see the Future tab."
+    "home.footer.more" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More projects are on the way — see the Future tab."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новые проекты уже в пути — загляните во вкладку «Будущее»."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новые проекты уже в пути — загляните во вкладку «Будущее»."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yangi loyihalar tez orada — «Kelajak» boʻlimiga qarang."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yangi loyihalar tez orada — «Kelajak» boʻlimiga qarang."
           }
         }
       }
     },
-    "home.project.todo.subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Local tasks · Active: %ld"
+    "home.project.todo.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local tasks · Active: %ld"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Локальные задачи · Активных: %ld"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Локальные задачи · Активных: %ld"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mahalliy vazifalar · Faol: %ld"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mahalliy vazifalar · Faol: %ld"
           }
         }
       }
     },
-    "home.project.todo.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To-Do List"
+    "home.project.todo.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To-Do List"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Список задач"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Список задач"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vazifalar roʻyxati"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazifalar roʻyxati"
           }
         }
       }
     },
-    "home.section.projects": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Available now"
+    "home.section.projects" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Available now"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Доступно сейчас"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступно сейчас"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hozir mavjud"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hozir mavjud"
           }
         }
       }
     },
-    "home.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Projects"
+    "home.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Projects"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проекты"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проекты"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loyihalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loyihalar"
           }
         }
       }
     },
-    "settings.language.footer": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Changes apply immediately."
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "settings.language.footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changes apply immediately."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Изменения применяются сразу."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изменения применяются сразу."
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oʻzgarishlar darhol qoʻllaniladi."
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oʻzgarishlar darhol qoʻllaniladi."
           }
         }
       }
     },
-    "settings.section.about": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About"
+    "settings.section.about" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "О приложении"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "О приложении"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ilova haqida"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilova haqida"
           }
         }
       }
     },
-    "settings.section.appearance": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Appearance"
+    "settings.section.appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Оформление"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оформление"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Koʻrinish"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koʻrinish"
           }
         }
       }
     },
-    "settings.section.language": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Language"
+    "settings.section.language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Язык"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Язык"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Til"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Til"
           }
         }
       }
     },
-    "settings.theme.dark": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dark"
+    "settings.theme.dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Тёмная"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тёмная"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Qorongʻi"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qorongʻi"
           }
         }
       }
     },
-    "settings.theme.light": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Light"
+    "settings.theme.light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Светлая"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Светлая"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yorugʻ"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yorugʻ"
           }
         }
       }
     },
-    "settings.theme.system": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "System"
+    "settings.theme.system" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Системная"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Системная"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tizim"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tizim"
           }
         }
       }
     },
-    "settings.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "settings.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Настройки"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sozlamalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sozlamalar"
           }
         }
       }
     },
-    "settings.version": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Version"
+    "settings.version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Версия"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Версия"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Versiya"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versiya"
           }
         }
       }
     },
-    "tab.future": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Future"
+    "tab.future" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Future"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Будущее"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Будущее"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kelajak"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kelajak"
           }
         }
       }
     },
-    "tab.home": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
+    "tab.home" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Главная"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Главная"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Asosiy"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asosiy"
           }
         }
       }
     },
-    "tab.settings": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "tab.settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Настройки"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sozlamalar"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sozlamalar"
           }
         }
       }
     },
-    "todo.a11y.completed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Completed"
+    "todo.a11y.completed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completed"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Выполнено"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выполнено"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bajarilgan"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajarilgan"
           }
         }
       }
     },
-    "todo.a11y.notCompleted": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Not completed"
+    "todo.a11y.notCompleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not completed"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не выполнено"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не выполнено"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bajarilmagan"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajarilmagan"
           }
         }
       }
     },
-    "todo.add.a11y": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add task"
+    "todo.add.a11y" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add task"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить задачу"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить задачу"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vazifa qoʻshish"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazifa qoʻshish"
           }
         }
       }
     },
-    "todo.alert.add": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add"
+    "todo.alert.add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Qoʻshish"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qoʻshish"
           }
         }
       }
     },
-    "todo.alert.message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter the task description below"
+    "todo.alert.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the task description below"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите описание задачи"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите описание задачи"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vazifa tavsifini kiriting"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazifa tavsifini kiriting"
           }
         }
       }
     },
-    "todo.alert.placeholder": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "e.g., Buy groceries, Read a book…"
+    "todo.alert.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g., Buy groceries, Read a book…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Например: купить продукты, почитать книгу…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Например: купить продукты, почитать книгу…"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masalan: non olish, kitob oʻqish…"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masalan: non olish, kitob oʻqish…"
           }
         }
       }
     },
-    "todo.alert.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New Task"
+    "todo.alert.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Task"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новая задача"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая задача"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yangi vazifa"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yangi vazifa"
           }
         }
       }
     },
-    "todo.empty.active.subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You have no active tasks"
+    "todo.empty.active.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no active tasks"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Активных задач нет"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активных задач нет"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Faol vazifalar yoʻq"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faol vazifalar yoʻq"
           }
         }
       }
     },
-    "todo.empty.active.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All done! 🎉"
+    "todo.empty.active.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All done! 🎉"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Всё готово! 🎉"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всё готово! 🎉"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hammasi bajarildi! 🎉"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hammasi bajarildi! 🎉"
           }
         }
       }
     },
-    "todo.empty.all.subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tap the + button above to create one"
+    "todo.empty.all.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the + button above to create one"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нажмите + вверху, чтобы создать задачу"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нажмите + вверху, чтобы создать задачу"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yangi vazifa uchun yuqoridagi + tugmasini bosing"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yangi vazifa uchun yuqoridagi + tugmasini bosing"
           }
         }
       }
     },
-    "todo.empty.all.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No tasks yet"
+    "todo.empty.all.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tasks yet"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Задач пока нет"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Задач пока нет"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hozircha vazifa yoʻq"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hozircha vazifa yoʻq"
           }
         }
       }
     },
-    "todo.empty.completed.subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finish a task to see it here"
+    "todo.empty.completed.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish a task to see it here"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Выполненные задачи появятся здесь"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выполненные задачи появятся здесь"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bajarilgan vazifalar shu yerda koʻrinadi"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajarilgan vazifalar shu yerda koʻrinadi"
           }
         }
       }
     },
-    "todo.empty.completed.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing completed yet"
+    "todo.empty.completed.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing completed yet"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пока ничего не выполнено"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пока ничего не выполнено"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hali hech narsa bajarilmagan"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hali hech narsa bajarilmagan"
           }
         }
       }
     },
-    "todo.filter.active": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Active (%ld)"
+    "todo.filter.active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active (%ld)"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Активные (%ld)"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активные (%ld)"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Faol (%ld)"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faol (%ld)"
           }
         }
       }
     },
-    "todo.filter.all": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All (%ld)"
+    "todo.filter.all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All (%ld)"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Все (%ld)"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Все (%ld)"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hammasi (%ld)"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hammasi (%ld)"
           }
         }
       }
     },
-    "todo.filter.done": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Done (%ld)"
+    "todo.filter.done" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done (%ld)"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Готово (%ld)"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готово (%ld)"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bajarilgan (%ld)"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajarilgan (%ld)"
           }
         }
       }
     },
-    "todo.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My Tasks"
+    "todo.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Tasks"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мои задачи"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мои задачи"
           }
         },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vazifalarim"
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazifalarim"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
