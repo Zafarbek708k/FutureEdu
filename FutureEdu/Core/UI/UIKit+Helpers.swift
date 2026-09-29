@@ -2,6 +2,8 @@
 //  UIKit+Helpers.swift
 //  FutureEdu
 //
+//  Small reusable views, laid out with frames (no Auto Layout).
+//
 
 import UIKit
 
@@ -14,7 +16,16 @@ extension UIFont {
     }
 }
 
+extension UILabel {
+    /// Height this (multi-line) label needs when it is `width` points wide.
+    func fittingHeight(forWidth width: CGFloat) -> CGFloat {
+        let size = sizeThatFits(CGSize(width: max(0, width), height: .greatestFiniteMagnitude))
+        return ceil(size.height)
+    }
+}
+
 /// Small capsule label, used for status / version badges.
+/// Call `sizeToFit()` (or `sizeThatFits`) to get its size including padding.
 final class BadgeLabel: UILabel {
     private let insets = UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
 
@@ -25,52 +36,56 @@ final class BadgeLabel: UILabel {
         backgroundColor = color.withAlphaComponent(0.15)
         font = .preferredBold(.caption1)
         adjustsFontForContentSizeCategory = true
-        layer.cornerRadius = 10
+        textAlignment = .center
         layer.masksToBounds = true
-        setContentHuggingPriority(.required, for: .horizontal)
-        setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
+    // Text is drawn inside the padding.
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: insets))
     }
 
-    override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + insets.left + insets.right,
-                      height: size.height + insets.top + insets.bottom)
+    // Size of the text + padding on every side.
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let textSize = super.sizeThatFits(size)
+        return CGSize(width: ceil(textSize.width) + insets.left + insets.right,
+                      height: ceil(textSize.height) + insets.top + insets.bottom)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.height / 2   // capsule shape
     }
 }
 
-/// Rounded square with an SF Symbol, used as project icons.
+/// Rounded square with an SF Symbol in the middle, used as project icons.
 final class IconTileView: UIView {
+    private let imageView = UIImageView()
+
     init(systemName: String, tint: UIColor, size: CGFloat = 64, pointSize: CGFloat = 28) {
-        super.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
+        // The tile knows its own size; the parent only sets its origin.
+        super.init(frame: CGRect(x: 0, y: 0, width: size, height: size))
         backgroundColor = tint.withAlphaComponent(0.15)
         layer.cornerRadius = size * 0.25
         layer.cornerCurve = .continuous
 
         let config = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .semibold)
-        let imageView = UIImageView(image: UIImage(systemName: systemName, withConfiguration: config))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: systemName, withConfiguration: config)
         imageView.tintColor = tint
         imageView.contentMode = .center
         addSubview(imageView)
-
-        NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: size),
-            heightAnchor.constraint(equalToConstant: size),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.frame = bounds   // fills the tile; .center keeps the symbol centered
     }
 }
