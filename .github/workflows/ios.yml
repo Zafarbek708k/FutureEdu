@@ -1,0 +1,76 @@
+# Builds the FutureEdu iOS app and runs its unit tests on an iOS Simulator.
+name: iOS CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & unit tests
+    # The project uses Xcode 26 features (default MainActor isolation, iOS 26 SDK APIs).
+    runs-on: macos-26
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select latest stable Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcodebuild -list -project FutureEdu.xcodeproj
+
+      - name: Pick an iPhone simulator
+        id: simulator
+        run: |
+          UDID=$(xcrun simctl list devices available --json | jq -r '
+            [ .devices | to_entries | sort_by(.key) | .[]
+              | select(.key | test("iOS"))
+              | .value[] | select(.name | startswith("iPhone")) ]
+            | last | .udid // empty')
+          if [ -z "$UDID" ]; then
+            echo "::error::No available iPhone simulator found"
+            xcrun simctl list devices available
+            exit 1
+          fi
+          echo "Using simulator: $UDID"
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+
+      - name: Build and run unit tests
+        run: |
+          set -o pipefail
+          ARGS=(
+            test
+            -project FutureEdu.xcodeproj
+            -scheme FutureEdu
+            -destination "id=${{ steps.simulator.outputs.udid }}"
+            -only-testing:FutureEduTests
+            -resultBundlePath TestResults.xcresult
+            CODE_SIGNING_ALLOWED=NO
+          )
+          if command -v xcbeautify >/dev/null 2>&1; then
+            xcodebuild "${ARGS[@]}" | xcbeautify --renderer github-actions
+          else
+            xcodebuild "${ARGS[@]}"
+          fi
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults
+          path: TestResults.xcresult
+          retention-days: 7
