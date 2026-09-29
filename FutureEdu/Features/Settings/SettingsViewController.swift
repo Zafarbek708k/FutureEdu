@@ -15,6 +15,7 @@ final class SettingsViewController: UIViewController {
 
     private let store: SettingsStore
     private let cellId = "SettingsCell"
+    // comment for git 
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
